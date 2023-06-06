@@ -1,25 +1,25 @@
-module.exports = MultiPoint;
+export default MultiPoint;
 
-var util = require('util');
+import { inherits } from './util.js';
 
-var Types = require('./types');
-var Geometry = require('./geometry');
-var Point = require('./point');
-var BinaryWriter = require('./binarywriter');
+import * as Types from './types.js';
+import Geometry from './geometry.js';
+import Point from './point.js';
+import BinaryWriter from './binarywriter.js';
 
 function MultiPoint(points, srid) {
     Geometry.call(this);
 
     this.points = points || [];
 	this.srid = srid;
-	
+
     if (this.points.length > 0) {
         this.hasZ = this.points[0].hasZ;
         this.hasM = this.points[0].hasM;
     }
 }
 
-util.inherits(MultiPoint, Geometry);
+inherits(MultiPoint, Geometry);
 
 MultiPoint.Z = function (points, srid) {
     var multiPoint = new MultiPoint(points, srid);

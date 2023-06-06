@@ -1,17 +1,17 @@
-module.exports = Geometry;
+export default Geometry;
 
-var Types = require('./types');
-var Point = require('./point');
-var LineString = require('./linestring');
-var Polygon = require('./polygon');
-var MultiPoint = require('./multipoint');
-var MultiLineString = require('./multilinestring');
-var MultiPolygon = require('./multipolygon');
-var GeometryCollection = require('./geometrycollection');
-var BinaryReader = require('./binaryreader');
-var BinaryWriter = require('./binarywriter');
-var WktParser = require('./wktparser');
-var ZigZag = require('./zigzag.js');
+import * as Types from './types.js';
+import Point from './point.js';
+import LineString from './linestring.js';
+import Polygon from './polygon.js';
+import MultiPoint from './multipoint.js';
+import MultiLineString from './multilinestring.js';
+import MultiPolygon from './multipolygon.js';
+import GeometryCollection from './geometrycollection.js';
+import BinaryReader from './binaryreader.js';
+import BinaryWriter from './binarywriter.js';
+import WktParser from './wktparser.js';
+import * as ZigZag from './zigzag.js';
 
 function Geometry() {
     this.srid = undefined;

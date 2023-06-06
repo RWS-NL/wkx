@@ -1,4 +1,4 @@
-module.exports = BinaryReader;
+export default BinaryReader;
 
 function BinaryReader(buffer, isBigEndian) {
     this.buffer = buffer;

@@ -1,10 +1,10 @@
-module.exports = GeometryCollection;
+export default GeometryCollection;
 
-var util = require('util');
+import { inherits } from './util.js';
 
-var Types = require('./types');
-var Geometry = require('./geometry');
-var BinaryWriter = require('./binarywriter');
+import * as Types from './types.js';
+import Geometry from './geometry.js';
+import BinaryWriter from './binarywriter.js';
 
 function GeometryCollection(geometries, srid) {
     Geometry.call(this);
@@ -18,7 +18,7 @@ function GeometryCollection(geometries, srid) {
     }
 }
 
-util.inherits(GeometryCollection, Geometry);
+inherits(GeometryCollection, Geometry);
 
 GeometryCollection.Z = function (geometries, srid) {
     var geometryCollection = new GeometryCollection(geometries, srid);

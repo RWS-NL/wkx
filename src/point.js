@@ -1,11 +1,11 @@
-module.exports = Point;
+export default Point;
 
-var util = require('util');
+import { inherits } from './util.js';
 
-var Geometry = require('./geometry');
-var Types = require('./types');
-var BinaryWriter = require('./binarywriter');
-var ZigZag = require('./zigzag.js');
+import Geometry from './geometry.js';
+import * as Types from './types.js';
+import BinaryWriter from './binarywriter.js';
+import * as ZigZag from './zigzag.js';
 
 function Point(x, y, z, m, srid) {
     Geometry.call(this);
@@ -20,7 +20,7 @@ function Point(x, y, z, m, srid) {
     this.hasM = typeof this.m !== 'undefined';
 }
 
-util.inherits(Point, Geometry);
+inherits(Point, Geometry);
 
 Point.Z = function (x, y, z, srid) {
     var point = new Point(x, y, z, undefined, srid);

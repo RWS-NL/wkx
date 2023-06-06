@@ -1,7 +1,7 @@
-module.exports = WktParser;
+export default WktParser;
 
-var Types = require('./types');
-var Point = require('./point');
+import * as Types from './types.js';
+import Point from './point.js';
 
 function WktParser(value) {
     this.value = value;

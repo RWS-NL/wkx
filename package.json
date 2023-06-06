@@ -1,33 +1,46 @@
 {
-  "name": "wkx",
-  "version": "0.5.0",
+  "name": "@rwsnl/wkx",
+  "version": "1.0.0",
   "description": "A WKT/WKB/EWKT/EWKB/TWKB/GeoJSON parser and serializer",
-  "main": "lib/wkx.js",
-  "types": "lib/wkx.d.ts",
-  "files": [
-    "dist/",
-    "lib/"
-  ],
-  "scripts": {
-    "test": "jshint . && nyc mocha",
-    "build": "mkdirp ./dist && browserify -r buffer -r ./lib/wkx.js:wkx ./lib/wkx.js > ./dist/wkx.js && uglifyjs -c -m -- ./dist/wkx.js > ./dist/wkx.min.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  "main": "dist/wkx.mjs",
+  "types": "dist/wkx.d.ts",
+  "exports": {
+    "default": {
+      "types": "./lib/wkx.d.ts",
+      "import": "./lib/wkx.mjs"
+    }
   },
-  "author": "Christian Schwarz",
+  "author": "RWS-NL",
   "license": "MIT",
-  "devDependencies": {
-    "async": "^3.2.0",
-    "browserify": "^16.5.0",
-    "coveralls": "^3.0.11",
-    "deep-eql": "^4.0.0",
-    "jshint": "^2.11.0",
-    "json-stringify-pretty-compact": "^2.0.0",
-    "mkdirp": "^1.0.3",
-    "mocha": "^7.1.1",
-    "nyc": "^15.0.0",
-    "pg": "^7.18.2",
-    "uglify-js": "^3.8.0"
+  "scripts": {
+    "test": "yarn build && mocha -r esm",
+    "build": "rollup -c",
+    "postinstall": "yarn build",
+    "prepack": "yarn build && pinst --disable",
+    "postpack": "pinst --enable",
+    "coveralls": "istanbul cover node_modules/mocha/bin/_mocha -- -r esm -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
+  "dependencies": {
+    "@types/node": "*"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.3",
+    "async": "^2.6.0",
+    "coveralls": "^3.0.1",
+    "deep-eql": "^3.0.1",
+    "esm": "^3.0.84",
+    "istanbul": "^0.4.5",
+    "json-stringify-pretty-compact": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^5.1.1",
+    "pg": "^7.4.3",
+    "rollup": "^0.66.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "terser": "^3.8.2"
+  },
+  "files": [
+    "dist/"
+  ],
   "repository": {
     "type": "git",
     "url": "http://github.com/cschwarz/wkx.git"
@@ -44,7 +57,5 @@
     "geography",
     "spatial"
   ],
-  "dependencies": {
-    "@types/node": "*"
-  }
+  "packageManager": "yarn@3.6.0"
 }

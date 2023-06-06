@@ -1,4 +1,26 @@
-coverage
-dist
-node_modules
-.nyc_output
+# Ignore a blackhole and the folder for development
+node_modules/
+.vs/
+.idea/
+*.iml
+coverage/
+docs/
+
+# Yarn files
+.yarn/install-state.gz
+.yarn/build-state.yml
+
+# Ignore output folders
+dist/
+tests/fixtures/build-out/
+
+# Ignore heapsnapshot and log files
+*.heapsnapshot
+*.log
+
+# Ignore package locks
+package-lock.json
+
+# Yarn files
+.yarn/install-state.gz
+.yarn/build-state.yml

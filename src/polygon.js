@@ -1,11 +1,11 @@
-module.exports = Polygon;
+export default Polygon;
 
-var util = require('util');
+import { inherits } from './util.js';
 
-var Geometry = require('./geometry');
-var Types = require('./types');
-var Point = require('./point');
-var BinaryWriter = require('./binarywriter');
+import Geometry from './geometry.js';
+import * as Types from './types.js';
+import Point from './point.js';
+import BinaryWriter from './binarywriter.js';
 
 function Polygon(exteriorRing, interiorRings, srid) {
     Geometry.call(this);
@@ -20,7 +20,7 @@ function Polygon(exteriorRing, interiorRings, srid) {
     }
 }
 
-util.inherits(Polygon, Geometry);
+inherits(Polygon, Geometry);
 
 Polygon.Z = function (exteriorRing, interiorRings, srid) {
     var polygon = new Polygon(exteriorRing, interiorRings, srid);

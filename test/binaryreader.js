@@ -1,6 +1,6 @@
-var BinaryReader = require('../lib/binaryreader');
+import BinaryReader from '../src/binaryreader';
 
-var assert = require('assert');
+import assert from 'assert';
 
 describe('wkx', function () {
     describe('BinaryReader', function () {

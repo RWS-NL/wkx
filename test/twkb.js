@@ -1,11 +1,10 @@
-var Geometry = require('../lib/geometry');
-var Point = require('../lib/point');
+import { Geometry, Point } from '../dist/wkx.mjs';
 
-var assert = require('assert');
+import assert from 'assert';
 
 describe('wkx', function () {
     describe('parseTwkb', function () {
-        it('includes size', function () {            
+        it('includes size', function () {
             assert.deepEqual(Geometry.parseTwkb(
                              new Buffer('0102020204', 'hex')),
                              new Point(1, 2));

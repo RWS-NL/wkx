@@ -1,11 +1,11 @@
-module.exports = LineString;
+export default LineString;
 
-var util = require('util');
+import { inherits } from './util.js';
 
-var Geometry = require('./geometry');
-var Types = require('./types');
-var Point = require('./point');
-var BinaryWriter = require('./binarywriter');
+import Geometry from './geometry.js';
+import * as Types from './types.js';
+import Point from './point.js';
+import BinaryWriter from './binarywriter.js';
 
 function LineString(points, srid) {
     Geometry.call(this);
@@ -19,7 +19,7 @@ function LineString(points, srid) {
     }
 }
 
-util.inherits(LineString, Geometry);
+inherits(LineString, Geometry);
 
 LineString.Z = function (points, srid) {
     var lineString = new LineString(points, srid);

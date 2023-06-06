@@ -1,12 +1,12 @@
-module.exports = MultiPolygon;
+export default MultiPolygon;
 
-var util = require('util');
+import { inherits } from './util.js';
 
-var Types = require('./types');
-var Geometry = require('./geometry');
-var Point = require('./point');
-var Polygon = require('./polygon');
-var BinaryWriter = require('./binarywriter');
+import * as Types from './types.js';
+import Geometry from './geometry.js';
+import Point from './point.js';
+import Polygon from './polygon.js';
+import BinaryWriter from './binarywriter.js';
 
 function MultiPolygon(polygons, srid) {
     Geometry.call(this);
@@ -20,7 +20,7 @@ function MultiPolygon(polygons, srid) {
     }
 }
 
-util.inherits(MultiPolygon, Geometry);
+inherits(MultiPolygon, Geometry);
 
 MultiPolygon.Z = function (polygons, srid) {
     var multiPolygon = new MultiPolygon(polygons, srid);

@@ -1,7 +1,6 @@
-var Geometry = require('../lib/geometry');
-var Point = require('../lib/point');
+import { Geometry, Point } from '../dist/wkx.mjs';
 
-var assert = require('assert');
+import assert from 'assert';
 
 describe('wkx', function () {
     describe('parseGeoJSON', function () {

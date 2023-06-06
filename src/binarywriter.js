@@ -1,4 +1,4 @@
-module.exports = BinaryWriter;
+export default BinaryWriter;
 
 function BinaryWriter(size, allowResize) {
     this.buffer = new Buffer(size);

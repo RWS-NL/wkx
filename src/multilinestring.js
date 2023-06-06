@@ -1,12 +1,12 @@
-module.exports = MultiLineString;
+export default MultiLineString;
 
-var util = require('util');
+import { inherits } from './util.js';
 
-var Types = require('./types');
-var Geometry = require('./geometry');
-var Point = require('./point');
-var LineString = require('./linestring');
-var BinaryWriter = require('./binarywriter');
+import * as Types from './types.js';
+import Geometry from './geometry.js';
+import Point from './point.js';
+import LineString from './linestring.js';
+import BinaryWriter from './binarywriter.js';
 
 function MultiLineString(lineStrings, srid) {
     Geometry.call(this);
@@ -20,7 +20,7 @@ function MultiLineString(lineStrings, srid) {
     }
 }
 
-util.inherits(MultiLineString, Geometry);
+inherits(MultiLineString, Geometry);
 
 MultiLineString.Z = function (lineStrings, srid) {
     var multiLineString = new MultiLineString(lineStrings, srid);
