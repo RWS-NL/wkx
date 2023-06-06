@@ -1,8 +1,6 @@
 /* eslint-disable guard-for-in */
-
 import eql from 'deep-eql';
-
-import { Geometry, MultiPoint, Point } from '../dist/wkx.mjs';
+import { Geometry, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from '../dist/wkx.mjs';
 
 const tests = {
 	'2D': require('./testdata.json'),
@@ -105,6 +103,15 @@ function assertToGeoJSON(data) {
 }
 
 describe('wkx', () => {
+	it('Assert Imported Variables exist', () => {
+		assert.notEqual(Geometry, undefined);
+		assert.notEqual(GeometryCollection, undefined);
+		assert.notEqual(LineString, undefined);
+		assert.notEqual(MultiLineString, undefined);
+		assert.notEqual(MultiPolygon, undefined);
+		assert.notEqual(Polygon, undefined);
+	});
+
 	describe('Geometry', () => {
 		it('parse(wkt) - coordinate', () => {
 			assert.deepEqual(Geometry.parse('POINT(1 2)'), new Point(1, 2));
