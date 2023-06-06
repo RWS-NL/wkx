@@ -3,7 +3,7 @@ import { Buffer } from 'node:buffer';
 export default BinaryWriter;
 
 function BinaryWriter(size, allowResize) {
-	this.buffer = new Buffer(size);
+	this.buffer = Buffer.alloc(size);
 	this.position = 0;
 	this.allowResize = allowResize;
 }
@@ -56,7 +56,7 @@ BinaryWriter.prototype.writeVarInt = function (value) {
 BinaryWriter.prototype.ensureSize = function (size) {
 	if (this.buffer.length < this.position + size) {
 		if (this.allowResize) {
-			var tempBuffer = new Buffer(this.position + size);
+			var tempBuffer = Buffer.alloc(this.position + size);
 			this.buffer.copy(tempBuffer, 0, 0, this.buffer.length);
 			this.buffer = tempBuffer;
 		} else {
