@@ -1,7 +1,7 @@
 /* eslint-disable guard-for-in */
-import eql from 'deep-eql';
 import assert from 'node:assert';
 import { Buffer } from 'node:buffer';
+import eql from 'deep-eql';
 import { Geometry, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from '../dist/wkx.mjs';
 import twoDimensional from './testdata.json' assert { type: 'json' };
 import m from './testdataM.json' assert { type: 'json' };
