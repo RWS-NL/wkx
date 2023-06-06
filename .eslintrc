@@ -27,6 +27,7 @@
 		"prefer-named-capture-group": "off",
 		"prefer-spread": "off",
 		"radix": "off",
+		"unicorn/no-new-buffer": "off",
 		"vars-on-top": "off"
 	}
 }
