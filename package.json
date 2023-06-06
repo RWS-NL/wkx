@@ -7,8 +7,8 @@
 	"types": "dist/wkx.d.mts",
 	"type": "module",
 	"exports": {
-		"types": "./dist/index.d.mts",
-		"import": "./dist/index.mjs"
+		"types": "./dist/wkx.d.mts",
+		"import": "./dist/wkx.mjs"
 	},
 	"author": "RWS-NL",
 	"license": "MIT",
