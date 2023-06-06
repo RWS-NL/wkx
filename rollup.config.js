@@ -1,4 +1,3 @@
-// import terser from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy';
 
 export default {
@@ -8,7 +7,5 @@ export default {
 		copy({
 			targets: [{ src: 'src/wkx.d.ts', dest: 'dist/' }]
 		})
-		// }),
-		// terser()
 	]
 };
