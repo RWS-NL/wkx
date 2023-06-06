@@ -7,5 +7,5 @@
 		"allowJs": true,
 		"checkJs": true
 	},
-	"include": ["src", "tests", "rollup.config.js"]
+	"include": ["src", "test", "rollup.config.js"]
 }

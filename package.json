@@ -13,9 +13,9 @@
 	"author": "RWS-NL",
 	"license": "MIT",
 	"scripts": {
-		"lint": "eslint src tests --ext js,ts --fix",
+		"lint": "eslint src test --ext js,ts --fix",
 		"format": "prettier --write .",
-		"test": "mocha tests -r esm",
+		"test": "mocha -r esm",
 		"build": "rollup -c",
 		"postinstall": "husky install .github/husky",
 		"prepack": "yarn build && pinst --disable",
