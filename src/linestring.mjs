@@ -1,11 +1,10 @@
+import BinaryWriter from './binarywriter.mjs';
+import Geometry from './geometry.mjs';
+import Point from './point.mjs';
+import * as Types from './types.mjs';
+import { inherits } from './util.mjs';
+
 export default LineString;
-
-import { inherits } from './util.js';
-
-import Geometry from './geometry.js';
-import * as Types from './types.js';
-import Point from './point.js';
-import BinaryWriter from './binarywriter.js';
 
 function LineString(points, srid) {
 	Geometry.call(this);

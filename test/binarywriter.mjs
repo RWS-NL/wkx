@@ -1,6 +1,5 @@
-import BinaryWriter from '../src/binarywriter';
-
-import assert from 'assert';
+import assert from 'node:assert';
+import BinaryWriter from '../src/binarywriter.mjs';
 
 describe('wkx', () => {
 	describe('BinaryWriter', () => {

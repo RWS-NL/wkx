@@ -1,10 +1,9 @@
+import BinaryWriter from './binarywriter.mjs';
+import Geometry from './geometry.mjs';
+import * as Types from './types.mjs';
+import { inherits } from './util.mjs';
+
 export default GeometryCollection;
-
-import { inherits } from './util.js';
-
-import * as Types from './types.js';
-import Geometry from './geometry.js';
-import BinaryWriter from './binarywriter.js';
 
 function GeometryCollection(geometries, srid) {
 	Geometry.call(this);

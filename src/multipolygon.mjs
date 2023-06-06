@@ -1,12 +1,11 @@
+import BinaryWriter from './binarywriter.mjs';
+import Geometry from './geometry.mjs';
+import Point from './point.mjs';
+import Polygon from './polygon.mjs';
+import * as Types from './types.mjs';
+import { inherits } from './util.mjs';
+
 export default MultiPolygon;
-
-import { inherits } from './util.js';
-
-import * as Types from './types.js';
-import Geometry from './geometry.js';
-import Point from './point.js';
-import Polygon from './polygon.js';
-import BinaryWriter from './binarywriter.js';
 
 function MultiPolygon(polygons, srid) {
 	Geometry.call(this);

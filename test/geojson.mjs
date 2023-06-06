@@ -1,12 +1,11 @@
+import assert from 'node:assert';
 import { Geometry, Point } from '../dist/wkx.mjs';
-
-import assert from 'assert';
 
 describe('wkx', () => {
 	describe('parseGeoJSON', () => {
 		it('includes short CRS', () => {
 			const point = new Point(1, 2);
-			point.srid = 4326;
+			point.srid = 4_326;
 
 			assert.deepEqual(
 				Geometry.parseGeoJSON({
@@ -24,7 +23,7 @@ describe('wkx', () => {
 		});
 		it('includes long CRS', () => {
 			const point = new Point(1, 2);
-			point.srid = 4326;
+			point.srid = 4_326;
 
 			assert.deepEqual(
 				Geometry.parseGeoJSON({
@@ -58,7 +57,7 @@ describe('wkx', () => {
 	describe('toGeoJSON', () => {
 		it('include short CRS', () => {
 			const point = new Point(1, 2);
-			point.srid = 4326;
+			point.srid = 4_326;
 
 			assert.deepEqual(point.toGeoJSON({ shortCrs: true }), {
 				type: 'Point',
@@ -73,7 +72,7 @@ describe('wkx', () => {
 		});
 		it('include long CRS', () => {
 			const point = new Point(1, 2);
-			point.srid = 4326;
+			point.srid = 4_326;
 
 			assert.deepEqual(point.toGeoJSON({ longCrs: true }), {
 				type: 'Point',
@@ -88,7 +87,7 @@ describe('wkx', () => {
 		});
 		it('geometry with SRID - without options', () => {
 			const point = new Point(1, 2);
-			point.srid = 4326;
+			point.srid = 4_326;
 
 			assert.deepEqual(point.toGeoJSON(), {
 				type: 'Point',
@@ -97,7 +96,7 @@ describe('wkx', () => {
 		});
 		it('geometry with SRID - with empty options', () => {
 			const point = new Point(1, 2);
-			point.srid = 4326;
+			point.srid = 4_326;
 
 			assert.deepEqual(point.toGeoJSON({}), {
 				type: 'Point',

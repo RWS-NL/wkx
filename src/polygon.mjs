@@ -1,11 +1,10 @@
+import BinaryWriter from './binarywriter.mjs';
+import Geometry from './geometry.mjs';
+import Point from './point.mjs';
+import * as Types from './types.mjs';
+import { inherits } from './util.mjs';
+
 export default Polygon;
-
-import { inherits } from './util.js';
-
-import Geometry from './geometry.js';
-import * as Types from './types.js';
-import Point from './point.js';
-import BinaryWriter from './binarywriter.js';
 
 function Polygon(exteriorRing, interiorRings, srid) {
 	Geometry.call(this);

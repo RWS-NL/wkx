@@ -1,17 +1,18 @@
-export default Geometry;
+import { Buffer } from 'node:buffer';
+import BinaryReader from './binaryreader.mjs';
+import BinaryWriter from './binarywriter.mjs';
+import GeometryCollection from './geometrycollection.mjs';
+import LineString from './linestring.mjs';
+import MultiLineString from './multilinestring.mjs';
+import MultiPoint from './multipoint.mjs';
+import MultiPolygon from './multipolygon.mjs';
+import Point from './point.mjs';
+import Polygon from './polygon.mjs';
+import * as Types from './types.mjs';
+import WktParser from './wktparser.mjs';
+import * as ZigZag from './zigzag.mjs';
 
-import * as Types from './types.js';
-import Point from './point.js';
-import LineString from './linestring.js';
-import Polygon from './polygon.js';
-import MultiPoint from './multipoint.js';
-import MultiLineString from './multilinestring.js';
-import MultiPolygon from './multipolygon.js';
-import GeometryCollection from './geometrycollection.js';
-import BinaryReader from './binaryreader.js';
-import BinaryWriter from './binarywriter.js';
-import WktParser from './wktparser.js';
-import * as ZigZag from './zigzag.js';
+export default Geometry;
 
 function Geometry() {
 	this.srid = undefined;
@@ -35,7 +36,7 @@ Geometry._parseWkt = function (value) {
 	else wktParser = new WktParser(value);
 
 	var match = wktParser.matchRegex([/^SRID=(\d+);/]);
-	if (match) srid = parseInt(match[1], 10);
+	if (match) srid = Number.parseInt(match[1], 10);
 
 	var geometryType = wktParser.matchType();
 	var dimension = wktParser.matchDimension();
@@ -86,16 +87,16 @@ Geometry._parseWkb = function (value, parentOptions) {
 	options.hasM = false;
 
 	if (!options.isEwkb && (!parentOptions || !parentOptions.isEwkb)) {
-		if (wkbType >= 1000 && wkbType < 2000) {
+		if (wkbType >= 1_000 && wkbType < 2_000) {
 			options.hasZ = true;
-			geometryType = wkbType - 1000;
-		} else if (wkbType >= 2000 && wkbType < 3000) {
+			geometryType = wkbType - 1_000;
+		} else if (wkbType >= 2_000 && wkbType < 3_000) {
 			options.hasM = true;
-			geometryType = wkbType - 2000;
-		} else if (wkbType >= 3000 && wkbType < 4000) {
+			geometryType = wkbType - 2_000;
+		} else if (wkbType >= 3_000 && wkbType < 4_000) {
 			options.hasZ = true;
 			options.hasM = true;
-			geometryType = wkbType - 3000;
+			geometryType = wkbType - 3_000;
 		} else {
 			geometryType = wkbType;
 		}
@@ -138,9 +139,9 @@ Geometry.parseTwkb = function (value) {
 
 	var geometryType = type & 0x0f;
 	options.precision = ZigZag.decode(type >> 4);
-	options.precisionFactor = Math.pow(10, options.precision);
+	options.precisionFactor = 10 ** options.precision;
 
-	options.hasBoundingBox = (metadataHeader >> 0) & 1;
+	options.hasBoundingBox = Math.trunc(metadataHeader) & 1;
 	options.hasSizeAttribute = (metadataHeader >> 1) & 1;
 	options.hasIdList = (metadataHeader >> 2) & 1;
 	options.hasExtendedPrecision = (metadataHeader >> 3) & 1;
@@ -152,10 +153,10 @@ Geometry.parseTwkb = function (value) {
 		options.hasM = (extendedPrecision & 0x02) === 0x02;
 
 		options.zPrecision = ZigZag.decode((extendedPrecision & 0x1c) >> 2);
-		options.zPrecisionFactor = Math.pow(10, options.zPrecision);
+		options.zPrecisionFactor = 10 ** options.zPrecision;
 
 		options.mPrecision = ZigZag.decode((extendedPrecision & 0xe0) >> 5);
-		options.mPrecisionFactor = Math.pow(10, options.mPrecision);
+		options.mPrecisionFactor = 10 ** options.mPrecision;
 	} else {
 		options.hasZ = false;
 		options.hasM = false;
@@ -230,11 +231,11 @@ Geometry._parseGeoJSON = function (value, isSubGeometry) {
 	if (value.crs && value.crs.type && value.crs.type === 'name' && value.crs.properties && value.crs.properties.name) {
 		var crs = value.crs.properties.name;
 
-		if (crs.indexOf('EPSG:') === 0) geometry.srid = parseInt(crs.substring(5));
-		else if (crs.indexOf('urn:ogc:def:crs:EPSG::') === 0) geometry.srid = parseInt(crs.substring(22));
+		if (crs.indexOf('EPSG:') === 0) geometry.srid = Number.parseInt(crs.slice(5));
+		else if (crs.indexOf('urn:ogc:def:crs:EPSG::') === 0) geometry.srid = Number.parseInt(crs.slice(22));
 		else throw new Error(`Unsupported crs: ${crs}`);
 	} else if (!isSubGeometry) {
-		geometry.srid = 4326;
+		geometry.srid = 4_326;
 	}
 
 	return geometry;
@@ -284,9 +285,9 @@ Geometry.prototype._writeWkbType = function (wkb, geometryType, parentOptions) {
 	var dimensionType = 0;
 
 	if (typeof this.srid === 'undefined' && (!parentOptions || typeof parentOptions.srid === 'undefined')) {
-		if (this.hasZ && this.hasM) dimensionType += 3000;
-		else if (this.hasZ) dimensionType += 1000;
-		else if (this.hasM) dimensionType += 2000;
+		if (this.hasZ && this.hasM) dimensionType += 3_000;
+		else if (this.hasZ) dimensionType += 1_000;
+		else if (this.hasM) dimensionType += 2_000;
 	} else {
 		if (this.hasZ) dimensionType |= 0x80000000;
 		if (this.hasM) dimensionType |= 0x40000000;
@@ -300,9 +301,9 @@ Geometry.getTwkbPrecision = function (xyPrecision, zPrecision, mPrecision) {
 		xy: xyPrecision,
 		z: zPrecision,
 		m: mPrecision,
-		xyFactor: Math.pow(10, xyPrecision),
-		zFactor: Math.pow(10, zPrecision),
-		mFactor: Math.pow(10, mPrecision)
+		xyFactor: 10 ** xyPrecision,
+		zFactor: 10 ** zPrecision,
+		mFactor: 10 ** mPrecision
 	};
 };
 
@@ -326,23 +327,21 @@ Geometry.prototype._writeTwkbHeader = function (twkb, geometryType, precision, i
 Geometry.prototype.toGeoJSON = function (options) {
 	var geoJSON = {};
 
-	if (this.srid) {
-		if (options) {
-			if (options.shortCrs) {
-				geoJSON.crs = {
-					type: 'name',
-					properties: {
-						name: `EPSG:${this.srid}`
-					}
-				};
-			} else if (options.longCrs) {
-				geoJSON.crs = {
-					type: 'name',
-					properties: {
-						name: `urn:ogc:def:crs:EPSG::${this.srid}`
-					}
-				};
-			}
+	if (this.srid && options) {
+		if (options.shortCrs) {
+			geoJSON.crs = {
+				type: 'name',
+				properties: {
+					name: `EPSG:${this.srid}`
+				}
+			};
+		} else if (options.longCrs) {
+			geoJSON.crs = {
+				type: 'name',
+				properties: {
+					name: `urn:ogc:def:crs:EPSG::${this.srid}`
+				}
+			};
 		}
 	}
 

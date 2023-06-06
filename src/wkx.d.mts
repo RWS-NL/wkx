@@ -1,6 +1,6 @@
 // / <reference types="node" />
 
-declare module 'wkx' {
+declare module '@rws-nl/wkx' {
 	export class Geometry {
 		srid: number;
 		hasZ: boolean;

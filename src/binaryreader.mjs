@@ -1,3 +1,5 @@
+import { Buffer } from 'node:buffer';
+
 export default BinaryReader;
 
 function BinaryReader(buffer, isBigEndian) {

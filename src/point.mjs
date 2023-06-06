@@ -1,11 +1,10 @@
+import BinaryWriter from './binarywriter.mjs';
+import Geometry from './geometry.mjs';
+import * as Types from './types.mjs';
+import { inherits } from './util.mjs';
+import * as ZigZag from './zigzag.mjs';
+
 export default Point;
-
-import { inherits } from './util.js';
-
-import Geometry from './geometry.js';
-import * as Types from './types.js';
-import BinaryWriter from './binarywriter.js';
-import * as ZigZag from './zigzag.js';
 
 function Point(x, y, z, m, srid) {
 	Geometry.call(this);
@@ -129,11 +128,11 @@ Point.prototype.toWkb = function (parentOptions) {
 	this._writeWkbType(wkb, Types.wkb.Point, parentOptions);
 
 	if (typeof this.x === 'undefined' && typeof this.y === 'undefined') {
-		wkb.writeDoubleLE(NaN);
-		wkb.writeDoubleLE(NaN);
+		wkb.writeDoubleLE(Number.NaN);
+		wkb.writeDoubleLE(Number.NaN);
 
-		if (this.hasZ) wkb.writeDoubleLE(NaN);
-		if (this.hasM) wkb.writeDoubleLE(NaN);
+		if (this.hasZ) wkb.writeDoubleLE(Number.NaN);
+		if (this.hasM) wkb.writeDoubleLE(Number.NaN);
 	} else {
 		this._writeWkbPoint(wkb);
 	}

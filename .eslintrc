@@ -1,16 +1,32 @@
 {
-	"extends": "@sapphire",
+	"root": true,
+	"extends": ["neon/common", "neon/node", "neon/module", "plugin:prettier/recommended"],
+	"parser": "@babel/eslint-parser",
+	"parserOptions": {
+		"requireConfigFile": false,
+		"babelOptions": {
+			"plugins": ["@babel/plugin-syntax-import-assertions"]
+		}
+	},
+	"env": {
+		"mocha": true
+	},
+	"ignorePatterns": ["src/wkx.d.mts"],
 	"rules": {
-		"@typescript-eslint/prefer-for-of": "off",
-		"@typescript-eslint/explicit-member-accessibility": "off",
-		"@typescript-eslint/no-invalid-this": "off",
 		"block-scoped-var": "off",
+		"consistent-return": "off",
+		"default-case": "off",
 		"func-names": "off",
+		"id-length": "off",
+		"import/no-cycle": "off",
 		"no-buffer-constructor": "off",
 		"no-eval": "off",
 		"no-negated-condition": "off",
+		"no-param-reassign": "off",
 		"no-var": "off",
+		"prefer-named-capture-group": "off",
 		"prefer-spread": "off",
-		"radix": "off"
+		"radix": "off",
+		"vars-on-top": "off"
 	}
 }

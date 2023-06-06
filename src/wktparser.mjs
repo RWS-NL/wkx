@@ -1,7 +1,7 @@
-export default WktParser;
+import Point from './point.mjs';
+import * as Types from './types.mjs';
 
-import * as Types from './types.js';
-import Point from './point.js';
+export default WktParser;
 
 function WktParser(value) {
 	this.value = value;
@@ -11,10 +11,10 @@ function WktParser(value) {
 WktParser.prototype.match = function (tokens) {
 	this.skipWhitespaces();
 
-	for (var i = 0; i < tokens.length; i++) {
-		if (this.value.substring(this.position).indexOf(tokens[i]) === 0) {
-			this.position += tokens[i].length;
-			return tokens[i];
+	for (const token of tokens) {
+		if (this.value.slice(Math.max(0, this.position)).indexOf(token) === 0) {
+			this.position += token.length;
+			return token;
 		}
 	}
 
@@ -24,8 +24,8 @@ WktParser.prototype.match = function (tokens) {
 WktParser.prototype.matchRegex = function (tokens) {
 	this.skipWhitespaces();
 
-	for (var i = 0; i < tokens.length; i++) {
-		var match = this.value.substring(this.position).match(tokens[i]);
+	for (const token of tokens) {
+		var match = this.value.slice(Math.max(0, this.position)).match(token);
 
 		if (match) {
 			this.position += match[0].length;
@@ -39,9 +39,9 @@ WktParser.prototype.matchRegex = function (tokens) {
 WktParser.prototype.isMatch = function (tokens) {
 	this.skipWhitespaces();
 
-	for (var i = 0; i < tokens.length; i++) {
-		if (this.value.substring(this.position).indexOf(tokens[i]) === 0) {
-			this.position += tokens[i].length;
+	for (const token of tokens) {
+		if (this.value.slice(Math.max(0, this.position)).indexOf(token) === 0) {
+			this.position += token.length;
 			return true;
 		}
 	}
@@ -91,16 +91,17 @@ WktParser.prototype.expectGroupEnd = function () {
 WktParser.prototype.matchCoordinate = function (options) {
 	var match;
 
-	if (options.hasZ && options.hasM) match = this.matchRegex([/^(\S*)\s+(\S*)\s+(\S*)\s+([^\s,)]*)/]);
-	else if (options.hasZ || options.hasM) match = this.matchRegex([/^(\S*)\s+(\S*)\s+([^\s,)]*)/]);
-	else match = this.matchRegex([/^(\S*)\s+([^\s,)]*)/]);
+	if (options.hasZ && options.hasM) match = this.matchRegex([/^(\S*)\s+(\S*)\s+(\S*)\s+([^\s),]*)/]);
+	else if (options.hasZ || options.hasM) match = this.matchRegex([/^(\S*)\s+(\S*)\s+([^\s),]*)/]);
+	else match = this.matchRegex([/^(\S*)\s+([^\s),]*)/]);
 
 	if (!match) throw new Error('Expected coordinates');
 
-	if (options.hasZ && options.hasM) return new Point(parseFloat(match[1]), parseFloat(match[2]), parseFloat(match[3]), parseFloat(match[4]));
-	else if (options.hasZ) return new Point(parseFloat(match[1]), parseFloat(match[2]), parseFloat(match[3]));
-	else if (options.hasM) return new Point(parseFloat(match[1]), parseFloat(match[2]), undefined, parseFloat(match[3]));
-	return new Point(parseFloat(match[1]), parseFloat(match[2]));
+	if (options.hasZ && options.hasM)
+		return new Point(Number.parseFloat(match[1]), Number.parseFloat(match[2]), Number.parseFloat(match[3]), Number.parseFloat(match[4]));
+	else if (options.hasZ) return new Point(Number.parseFloat(match[1]), Number.parseFloat(match[2]), Number.parseFloat(match[3]));
+	else if (options.hasM) return new Point(Number.parseFloat(match[1]), Number.parseFloat(match[2]), undefined, Number.parseFloat(match[3]));
+	return new Point(Number.parseFloat(match[1]), Number.parseFloat(match[2]));
 };
 
 WktParser.prototype.matchCoordinates = function (options) {

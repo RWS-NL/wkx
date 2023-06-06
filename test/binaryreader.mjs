@@ -1,6 +1,6 @@
-import BinaryReader from '../src/binaryreader';
-
-import assert from 'assert';
+import assert from 'node:assert';
+import { Buffer } from 'node:buffer';
+import BinaryReader from '../src/binaryreader.mjs';
 
 describe('wkx', () => {
 	describe('BinaryReader', () => {

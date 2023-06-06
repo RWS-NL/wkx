@@ -1,15 +1,19 @@
 /* eslint-disable guard-for-in */
 import eql from 'deep-eql';
+import assert from 'node:assert';
+import { Buffer } from 'node:buffer';
 import { Geometry, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from '../dist/wkx.mjs';
+import twoDimensional from './testdata.json' assert { type: 'json' };
+import m from './testdataM.json' assert { type: 'json' };
+import z from './testdataZ.json' assert { type: 'json' };
+import zm from './testdataZM.json' assert { type: 'json' };
 
 const tests = {
-	'2D': require('./testdata.json'),
-	Z: require('./testdataZ.json'),
-	M: require('./testdataM.json'),
-	ZM: require('./testdataZM.json')
+	'2D': twoDimensional,
+	Z: z,
+	M: m,
+	ZM: zm
 };
-
-import assert from 'assert';
 
 function assertParseWkt(data) {
 	assert(eql(Geometry.parse(data.wkt), eval(data.geometry)));
@@ -31,21 +35,21 @@ function assertParseWkbXdr(data) {
 
 function assertParseEwkt(data) {
 	const geometry = eval(data.geometry);
-	geometry.srid = 4326;
+	geometry.srid = 4_326;
 	assert(eql(Geometry.parse(`SRID=4326;${data.wkt}`), geometry));
 }
 
 function assertParseEwkb(data) {
 	let geometry = data.wkbGeometry ? data.wkbGeometry : data.geometry;
 	geometry = eval(geometry);
-	geometry.srid = 4326;
+	geometry.srid = 4_326;
 	assert(eql(Geometry.parse(Buffer.from(data.ewkb, 'hex')), geometry));
 }
 
 function assertParseEwkbXdr(data) {
 	let geometry = data.wkbGeometry ? data.wkbGeometry : data.geometry;
 	geometry = eval(geometry);
-	geometry.srid = 4326;
+	geometry.srid = 4_326;
 	assert(eql(Geometry.parse(Buffer.from(data.ewkbXdr, 'hex')), geometry));
 }
 
@@ -70,7 +74,7 @@ function assertParseTwkb(data) {
 function assertParseGeoJSON(data) {
 	let geometry = data.geoJSONGeometry ? data.geoJSONGeometry : data.geometry;
 	geometry = eval(geometry);
-	geometry.srid = 4326;
+	geometry.srid = 4_326;
 	assert(eql(Geometry.parseGeoJSON(data.geoJSON), geometry));
 }
 
@@ -84,13 +88,13 @@ function assertToWkb(data) {
 
 function assertToEwkt(data) {
 	const geometry = eval(data.geometry);
-	geometry.srid = 4326;
+	geometry.srid = 4_326;
 	assert.equal(geometry.toEwkt(), `SRID=4326;${data.wkt}`);
 }
 
 function assertToEwkb(data) {
 	const geometry = eval(data.geometry);
-	geometry.srid = 4326;
+	geometry.srid = 4_326;
 	assert.equal(geometry.toEwkb().toString('hex'), data.ewkb);
 }
 

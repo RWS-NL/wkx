@@ -1,6 +1,6 @@
+import assert from 'node:assert';
+import { Buffer } from 'node:buffer';
 import { Geometry, Point } from '../dist/wkx.mjs';
-
-import assert from 'assert';
 
 describe('wkx', () => {
 	describe('parseTwkb', () => {
@@ -22,7 +22,7 @@ describe('wkx', () => {
 			assert.equal(new Point(1, 2).toTwkb().toString('hex'), 'a100c09a0c80b518');
 		});
 		it('Point large', () => {
-			assert.equal(new Point(10000, 20000).toTwkb().toString('hex'), 'a10080a8d6b90780d0acf30e');
+			assert.equal(new Point(10_000, 20_000).toTwkb().toString('hex'), 'a10080a8d6b90780d0acf30e');
 		});
 	});
 });

@@ -1,11 +1,10 @@
+import BinaryWriter from './binarywriter.mjs';
+import Geometry from './geometry.mjs';
+import Point from './point.mjs';
+import * as Types from './types.mjs';
+import { inherits } from './util.mjs';
+
 export default MultiPoint;
-
-import { inherits } from './util.js';
-
-import * as Types from './types.js';
-import Geometry from './geometry.js';
-import Point from './point.js';
-import BinaryWriter from './binarywriter.js';
 
 function MultiPoint(points, srid) {
 	Geometry.call(this);

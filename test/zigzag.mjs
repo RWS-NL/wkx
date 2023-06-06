@@ -1,6 +1,5 @@
-import * as ZigZag from '../src/zigzag';
-
-import assert from 'assert';
+import assert from 'node:assert';
+import * as ZigZag from '../src/zigzag.mjs';
 
 describe('wkx', () => {
 	describe('ZigZag', () => {

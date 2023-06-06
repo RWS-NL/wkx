@@ -1,3 +1,5 @@
+import { Buffer } from 'node:buffer';
+
 export default BinaryWriter;
 
 function BinaryWriter(size, allowResize) {
