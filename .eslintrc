@@ -1,0 +1,15 @@
+{
+	"extends": "@sapphire",
+	"rules": {
+		"@typescript-eslint/prefer-for-of": "off",
+		"@typescript-eslint/explicit-member-accessibility": "off",
+		"@typescript-eslint/no-invalid-this": "off",
+		"func-names": "off",
+		"no-eval": "off",
+		"block-scoped-var": "off",
+		"no-var": "off",
+		"radix": "off",
+		"no-negated-condition": "off",
+		"prefer-spread": "off"
+	}
+}

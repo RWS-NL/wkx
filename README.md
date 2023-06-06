@@ -1,18 +1,16 @@
-wkx [![Build Status](https://travis-ci.org/cschwarz/wkx.svg?branch=master)](https://travis-ci.org/cschwarz/wkx) [![Coverage Status](https://coveralls.io/repos/cschwarz/wkx/badge.svg?branch=master)](https://coveralls.io/r/cschwarz/wkx?branch=master)
-========
+# wkx [![Build Status](https://travis-ci.org/cschwarz/wkx.svg?branch=master)](https://travis-ci.org/cschwarz/wkx) [![Coverage Status](https://coveralls.io/repos/cschwarz/wkx/badge.svg?branch=master)](https://coveralls.io/r/cschwarz/wkx?branch=master)
 
 A WKT/WKB/EWKT/EWKB/TWKB/GeoJSON parser and serializer with support for
 
-- Point
-- LineString
-- Polygon
-- MultiPoint
-- MultiLineString
-- MultiPolygon
-- GeometryCollection
+-   Point
+-   LineString
+-   Polygon
+-   MultiPoint
+-   MultiLineString
+-   MultiPolygon
+-   GeometryCollection
 
-Examples
---------
+## Examples
 
 The following examples show you how to work with wkx.
 
@@ -35,7 +33,10 @@ var geometry = wkx.Geometry.parse(ewkbBuffer);
 var geometry = wkx.Geometry.parseTwkb(twkbBuffer);
 
 //Parsing a GeoJSON object
-var geometry = wkx.Geometry.parseGeoJSON({ type: 'Point', coordinates: [1, 2] });
+var geometry = wkx.Geometry.parseGeoJSON({
+	type: 'Point',
+	coordinates: [1, 2]
+});
 
 //Serializing a Point geometry to WKT
 var wktString = new wkx.Point(1, 2).toWkt();
@@ -56,11 +57,11 @@ var twkbBuffer = new wkx.Point(1, 2).toTwkb();
 var geoJSONObject = new wkx.Point(1, 2).toGeoJSON();
 ```
 
-Browser
--------
+## Browser
 
 To use `wkx` in a webpage, simply copy a built browser version from `dist/` into your project, and use a `script` tag
 to include it:
+
 ```html
 <script src="wkx.js"></script>
 ```
@@ -68,9 +69,10 @@ to include it:
 If you use [browserify][] for your project, you can simply `npm install wkx --save`, and just require `wkx` as usual in
 your code.
 
-----
+---
 
 Regardless of which of the preceeding options you choose, using `wkx` in the browser will look the same:
+
 ```javascript
 var wkx = require('wkx');
 
@@ -80,6 +82,7 @@ console.log(geometry.toGeoJSON());
 ```
 
 In addition to the `wkx` module, the browser versions also export `buffer`, which is useful for parsing WKB:
+
 ```javascript
 var Buffer = require('buffer').Buffer;
 var wkx = require('wkx');
@@ -89,4 +92,5 @@ var geometry = wkx.Geometry.parse(wkbBuffer);
 
 console.log(geometry.toGeoJSON());
 ```
+
 [browserify]: http://browserify.org/

@@ -1,24 +1,22 @@
 export default BinaryReader;
 
 function BinaryReader(buffer, isBigEndian) {
-    this.buffer = buffer;
-    this.position = 0;
-    this.isBigEndian = isBigEndian || false;
+	this.buffer = buffer;
+	this.position = 0;
+	this.isBigEndian = isBigEndian || false;
 }
 
 function _read(readLE, readBE, size) {
-    return function () {
-        var value;
+	return function () {
+		var value;
 
-        if (this.isBigEndian)
-            value = readBE.call(this.buffer, this.position);
-        else
-            value = readLE.call(this.buffer, this.position);
+		if (this.isBigEndian) value = readBE.call(this.buffer, this.position);
+		else value = readLE.call(this.buffer, this.position);
 
-        this.position += size;
+		this.position += size;
 
-        return value;
-    };
+		return value;
+	};
 }
 
 BinaryReader.prototype.readUInt8 = _read(Buffer.prototype.readUInt8, Buffer.prototype.readUInt8, 1);
@@ -31,17 +29,17 @@ BinaryReader.prototype.readFloat = _read(Buffer.prototype.readFloatLE, Buffer.pr
 BinaryReader.prototype.readDouble = _read(Buffer.prototype.readDoubleLE, Buffer.prototype.readDoubleBE, 8);
 
 BinaryReader.prototype.readVarInt = function () {
-    var nextByte,
-        result = 0,
-        bytesRead = 0;
+	var nextByte;
+	var result = 0;
+	var bytesRead = 0;
 
-    do {
-        nextByte = this.buffer[this.position + bytesRead];
-        result += (nextByte & 0x7F) << (7 * bytesRead);
-        bytesRead++;
-    } while (nextByte >= 0x80);
+	do {
+		nextByte = this.buffer[this.position + bytesRead];
+		result += (nextByte & 0x7f) << (7 * bytesRead);
+		bytesRead++;
+	} while (nextByte >= 0x80);
 
-    this.position += bytesRead;
+	this.position += bytesRead;
 
-    return result;
+	return result;
 };

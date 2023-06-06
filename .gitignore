@@ -12,7 +12,6 @@ docs/
 
 # Ignore output folders
 dist/
-tests/fixtures/build-out/
 
 # Ignore heapsnapshot and log files
 *.heapsnapshot
@@ -20,7 +19,3 @@ tests/fixtures/build-out/
 
 # Ignore package locks
 package-lock.json
-
-# Yarn files
-.yarn/install-state.gz
-.yarn/build-state.yml
