@@ -1,5 +1,5 @@
 {
-	"name": "@rwsnl/wkx",
+	"name": "@rws-nl/wkx",
 	"version": "1.0.0",
 	"description": "A WKT/WKB/EWKT/EWKB/TWKB/GeoJSON parser and serializer",
 	"main": "dist/wkx.mjs",

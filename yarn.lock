@@ -99,9 +99,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rwsnl/wkx@workspace:.":
+"@rws-nl/wkx@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@rwsnl/wkx@workspace:."
+  resolution: "@rws-nl/wkx@workspace:."
   dependencies:
     "@sapphire/eslint-config": ^4.4.2
     "@sapphire/prettier-config": ^1.4.5
